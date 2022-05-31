@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Validation from './utils/validation';
+import { Component } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
+
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,14 @@ import Validation from './utils/validation';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'stock-market-frontend';
+
+  title ='stock market';
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(DialogComponent,{
+      width:'30%'
+    });
+  }
+ 
 }
