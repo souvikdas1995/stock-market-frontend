@@ -20,7 +20,11 @@ export class StockmarketService {
   add(company : any): Observable<any> {
     return this.http.post<any>(`${companyBaseUrl}/add`,company);
   }
-  delete(id : number): Observable<any> {
-    return this.http.delete(`${companyBaseUrl}/delete/${id}`);
+  update(company : any, id: number): Observable<any>{
+    return this.http.put<any>(`${companyBaseUrl}/`+id,company);
   }
+  delete(id : number): Observable<any> {
+    return this.http.delete(`${companyBaseUrl}/`+id);
+  }
+
 }

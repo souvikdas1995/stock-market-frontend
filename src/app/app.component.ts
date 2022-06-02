@@ -1,5 +1,5 @@
 
-import { Component, OnInit,AfterViewInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { StockmarketService } from './services/stockmarket.service';
@@ -14,19 +14,23 @@ import {MatTableDataSource} from '@angular/material/table';
 export class AppComponent implements OnInit{
 
   title ='stock market';
-  displayedColumns: string[] = ['companyName', 'description', 'ceo', 'turnover','website'];
+  displayedColumns: string[] = ['companyName', 'description', 'ceo', 'turnover','website', 'action'];
   dataSource !: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(public dialog: MatDialog, private stockmarketapi: StockmarketService) {}
+  constructor(public dialog: MatDialog ,private stockmarketapi: StockmarketService) {}
   ngOnInit():void{
     this.getallcompanyDetails();
   }
   openDialog() {
     this.dialog.open(DialogComponent,{
       width:'30%'
-    });
+    }).afterClosed().subscribe(val =>{
+        if(val==='save'){
+          this.getallcompanyDetails();
+        }
+    })
   }
   getallcompanyDetails(){
     this.stockmarketapi.getAll()
@@ -41,6 +45,33 @@ export class AppComponent implements OnInit{
       }
     })
 
+  }
+
+  editCompany(row : any){
+
+    this.dialog.open(DialogComponent,{
+      width:'30%',
+      data : row
+
+    }).afterClosed().subscribe(val =>{
+      if(val==='update'){
+        this.getallcompanyDetails();
+      }
+  })
+  }
+
+  deleteCompany(id : number){
+    this.stockmarketapi.delete(id)
+    .subscribe({
+      next:(res)=>{
+        alert("deleted successfully");
+        this.getallcompanyDetails();
+      },
+      error:(err)=>{
+        alert("error occured while deleting company");
+        console.log(err);
+      }
+    })
   }
 
   applyFilter(event: Event) {
