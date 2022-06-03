@@ -1,12 +1,38 @@
 
   <mat-toolbar color="primary">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>style</mat-icon>
+      <mat-icon>business</mat-icon>
     </button>
     <span>Stock Market</span>
     <span class="example-spacer"></span>
     <button mat-raised-button color="warn" (click)="openDialog()">Add Company</button>
   </mat-toolbar>
+
+  <div class=searchcontainer>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Find Stock Details
+          </mat-panel-title>
+          <mat-panel-description>
+            Choose Company Name and Date Range
+            <mat-icon>search</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>First name</mat-label>
+          <input matInput>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1">
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 
   <div class="container">
     <div style="margin-top: 10px;">
