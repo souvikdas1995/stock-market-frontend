@@ -7,32 +7,55 @@
     <span class="example-spacer"></span>
     <button mat-raised-button color="warn" (click)="openDialog()">Add Company</button>
   </mat-toolbar>
-
+  <form [formGroup]="searchForm">
   <div class=searchcontainer>
     <mat-accordion class="example-headers-align" multi>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Find Stock Details
+            Find Stocks for a Company
           </mat-panel-title>
           <mat-panel-description>
             Choose Company Name and Date Range
             <mat-icon>search</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
-    
-        <mat-form-field appearance="fill">
-          <mat-label>First name</mat-label>
-          <input matInput>
+      <div class=searchcontainer1>
+        <h5>Select Company</h5>
+        <mat-form-field appearance="outline">
+          <mat-label>Company Name</mat-label>
+          <mat-select formControlName="companyName">
+            <mat-option *ngFor="let company of companies" [value]="company.companyName">
+              {{company.companyName}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-    
-        <mat-form-field appearance="fill">
-          <mat-label>Age</mat-label>
-          <input matInput type="number" min="1">
+      </div>
+      <div class=searchcontainer1>
+        <h5>Select Date</h5>
+        <mat-form-field appearance="outline" class="example-form-field">
+          <mat-label>Enter date range</mat-label>
+          <mat-date-range-input [rangePicker]="rangePicker">
+            <input formControlName="startDate" matStartDate placeholder="Start date">
+            <input formControlName="endDate" matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-hint>YYYY/MM/DD – YYYY/MM/DD</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker>
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
         </mat-form-field>
+      </div>
+      <div class=searchcontainer1>
+        <button mat-raised-button color="primary">Find Stocks</button>
+      </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
+</form>
 
   <div class="container">
     <div style="margin-top: 10px;">
@@ -67,6 +90,11 @@
           <ng-container matColumnDef="website">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Website </th>
             <td mat-cell *matCellDef="let row"> <a href={{row.website}} target="_blank">{{row.website}}</a> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="exchange">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Exchange </th>
+            <td mat-cell *matCellDef="let row"> {{row.exchange}} </td>
           </ng-container>
 
           <ng-container matColumnDef="action">

@@ -7,6 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatAccordion} from '@angular/material/expansion';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,13 +16,29 @@ import {MatAccordion} from '@angular/material/expansion';
 export class AppComponent implements OnInit{
 
   title ='stock market';
-  displayedColumns: string[] = ['companyName', 'description', 'ceo', 'turnover','website', 'action'];
+  searchForm !:FormGroup;
+  companies: any =[];
+  companyCode!: string;
+  displayedColumns: string[] = ['companyName', 'description', 'ceo', 'turnover','website', 'exchange', 'action'];
   dataSource !: MatTableDataSource<any>;
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(public dialog: MatDialog ,private stockmarketapi: StockmarketService) {}
+  constructor(public dialog: MatDialog ,private stockmarketapi: StockmarketService, private formBuilder : FormBuilder) {}
   ngOnInit():void{
+    
+  
+  this.stockmarketapi
+  .getAll()
+  .subscribe(response => this.companies = response);
+
+
+    this.searchForm=this.formBuilder.group({
+      companyName : ['',Validators.required],
+      startDate : ['',Validators.required],
+      endDate : ['',Validators.required]
+
+    })
     this.getallcompanyDetails();
   }
   openDialog() {
