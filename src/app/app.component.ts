@@ -26,20 +26,28 @@ export class AppComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
   constructor(public dialog: MatDialog ,private stockmarketapi: StockmarketService, private formBuilder : FormBuilder) {}
   ngOnInit():void{
-    
+
   
-  this.stockmarketapi
-  .getAll()
-  .subscribe(response => this.companies = response);
-
-
     this.searchForm=this.formBuilder.group({
-      companyName : ['',Validators.required],
+      companyCode : ['',Validators.required],
       startDate : ['',Validators.required],
       endDate : ['',Validators.required]
 
     })
     this.getallcompanyDetails();
+  }
+
+  fetchDetailsforpanel(){
+    
+      this.stockmarketapi
+    .getAll()
+    .subscribe(response => this.companies = response);
+  }
+
+  resetForm(){
+    console.log(this.searchForm.value);
+    this.searchForm.reset({companyName: '', startDate: '', endDate: ''});
+    
   }
   openDialog() {
     this.dialog.open(DialogComponent,{
@@ -90,6 +98,10 @@ export class AppComponent implements OnInit{
         console.log(err);
       }
     })
+  }
+
+  findStocks(){
+    
   }
 
   applyFilter(event: Event) {

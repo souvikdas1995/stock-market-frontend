@@ -10,7 +10,7 @@
   <form [formGroup]="searchForm">
   <div class=searchcontainer>
     <mat-accordion class="example-headers-align" multi>
-      <mat-expansion-panel>
+      <mat-expansion-panel  (opened)="fetchDetailsforpanel()" (closed)="resetForm()">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Find Stocks for a Company
@@ -24,8 +24,8 @@
         <h5>Select Company</h5>
         <mat-form-field appearance="outline">
           <mat-label>Company Name</mat-label>
-          <mat-select formControlName="companyName">
-            <mat-option *ngFor="let company of companies" [value]="company.companyName">
+          <mat-select formControlName="companyCode">
+            <mat-option *ngFor="let company of companies" [value]="company.companyCode">
               {{company.companyName}}
             </mat-option>
           </mat-select>
@@ -39,7 +39,7 @@
             <input formControlName="startDate" matStartDate placeholder="Start date">
             <input formControlName="endDate" matEndDate placeholder="End date">
           </mat-date-range-input>
-          <mat-hint>YYYY/MM/DD – YYYY/MM/DD</mat-hint>
+          <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
           <mat-date-range-picker #rangePicker>
             <mat-date-range-picker-actions>
@@ -50,7 +50,7 @@
         </mat-form-field>
       </div>
       <div class=searchcontainer1>
-        <button mat-raised-button color="primary">Find Stocks</button>
+        <button mat-raised-button color="primary" (click)="findStocks()">Find Stocks</button>
       </div>
       </mat-expansion-panel>
     </mat-accordion>
