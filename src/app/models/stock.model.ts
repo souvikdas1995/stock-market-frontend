@@ -1,12 +1,9 @@
-import { Company } from "./company.model";
+export interface Stock {
 
-export class Stock {
-
-    stockCode?: number;
-    stockName?: string;
-    description?: string;
-    price?: number;
-    startDate?: Date;
-    endDate?: Date;
-    company?: Company
+    stockCode: number;
+    stockName: string;
+    description: string;
+    price: number;
+    startDate: Date;
+    endDate: Date;
 }

@@ -8,7 +8,8 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatAccordion} from '@angular/material/expansion';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import { StocklistComponent } from './components/stocklist/stocklist.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -109,18 +110,21 @@ export class AppComponent implements OnInit{
   findStocks(){
 
     if(this.searchForm.valid){
-      console.log(this.searchForm.value);
       let start_date =this.datepipe.transform(this.searchForm.value.startDate, 'yyyy-MM-dd');
-      console.log(start_date);
-
       let end_date =this.datepipe.transform(this.searchForm.value.endDate, 'yyyy-MM-dd');
-      console.log(end_date);
+
+      
       this.stockmarketapi.getStocks(this.searchForm.controls['companyCode'].value, 
       start_date, end_date)
       .subscribe({
         next:(res)=>{
-          alert("fetched successfully");
+          this.dialog.open(StocklistComponent,{
+            width:'50%',
+            data : res
+      
+          })
           console.log(res);
+          
         },
         error:(err)=>{
           alert("error occured while fetching stocks");
@@ -130,6 +134,10 @@ export class AppComponent implements OnInit{
     
      }
     
+  }
+
+  calculateMax(){
+
   }
 
   applyFilter(event: Event) {

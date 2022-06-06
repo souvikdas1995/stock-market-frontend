@@ -20,12 +20,15 @@ import { MatTableModule } from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import { StocklistComponent } from './components/stocklist/stocklist.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogComponent
+    DialogComponent,
+    StocklistComponent
   ], 
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { DatePipe } from '@angular/common'
     MatTableModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatChipsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
