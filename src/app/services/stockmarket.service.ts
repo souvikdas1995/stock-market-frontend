@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Company } from '../models/company.model';
 import { Stock } from '../models/stock.model';
 const companyBaseUrl = 'http://localhost:8081/api/v1/company';
-const stockBaseUrl = 'http://localhost:8082/api/v1/stock';
+const stockBaseUrl = 'http://localhost:8081/api/v1/stock';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +25,9 @@ export class StockmarketService {
   }
   delete(id : number): Observable<any> {
     return this.http.delete(`${companyBaseUrl}/`+id);
+  }
+  getStocks(id : number, startDate : any, endDate : any) :  Observable<any>{
+    return this.http.get(`${stockBaseUrl}/get/`+id+'/'+startDate+'/'+endDate);
   }
 
 }

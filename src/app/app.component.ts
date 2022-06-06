@@ -8,23 +8,24 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatAccordion} from '@angular/material/expansion';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit{
 
   title ='stock market';
   searchForm !:FormGroup;
   companies: any =[];
-  companyCode!: string;
   displayedColumns: string[] = ['companyName', 'description', 'ceo', 'turnover','website', 'exchange', 'action'];
   dataSource !: MatTableDataSource<any>;
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(public dialog: MatDialog ,private stockmarketapi: StockmarketService, private formBuilder : FormBuilder) {}
+  constructor(public dialog: MatDialog ,private datepipe: DatePipe, private stockmarketapi: StockmarketService, private formBuilder : FormBuilder) {}
   ngOnInit():void{
 
   
@@ -40,12 +41,17 @@ export class AppComponent implements OnInit{
   fetchDetailsforpanel(){
     
       this.stockmarketapi
-    .getAll()
-    .subscribe(response => this.companies = response);
+      .getAll()
+      .subscribe({next:(res)=>{
+         this.companies = res;
+      },
+      error:(err)=>{
+        alert("error occured while fetching company details");
+      }
+    })
   }
 
   resetForm(){
-    console.log(this.searchForm.value);
     this.searchForm.reset({companyName: '', startDate: '', endDate: ''});
     
   }
@@ -101,6 +107,28 @@ export class AppComponent implements OnInit{
   }
 
   findStocks(){
+
+    if(this.searchForm.valid){
+      console.log(this.searchForm.value);
+      let start_date =this.datepipe.transform(this.searchForm.value.startDate, 'yyyy-MM-dd');
+      console.log(start_date);
+
+      let end_date =this.datepipe.transform(this.searchForm.value.endDate, 'yyyy-MM-dd');
+      console.log(end_date);
+      this.stockmarketapi.getStocks(this.searchForm.controls['companyCode'].value, 
+      start_date, end_date)
+      .subscribe({
+        next:(res)=>{
+          alert("fetched successfully");
+          console.log(res);
+        },
+        error:(err)=>{
+          alert("error occured while fetching stocks");
+          console.log(err);
+        }
+      })
+    
+     }
     
   }
 
