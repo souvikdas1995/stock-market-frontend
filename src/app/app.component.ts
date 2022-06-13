@@ -53,6 +53,7 @@ export class AppComponent implements OnInit{
   }
 
   resetForm(){
+    this.searchForm.markAsUntouched();
     this.searchForm.reset({companyName: '', startDate: '', endDate: ''});
     
   }

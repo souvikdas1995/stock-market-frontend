@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Stock } from 'src/app/models/stock.model';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-stocklist',
