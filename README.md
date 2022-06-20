@@ -35,3 +35,11 @@ docker pull souvikd95/stock-market-frontend:latest
 ## Backend for this application
 
 https://github.com/souvikdas1995/stock-market
+
+## Some snapshot
+![snap1](https://user-images.githubusercontent.com/32546790/174549502-42447212-8c0d-4ef2-ab7e-dbbd61f89bcd.PNG)
+![snap2](https://user-images.githubusercontent.com/32546790/174549511-9573e994-d0ba-499a-a1c3-97241b1ea7df.PNG)
+![snap3](https://user-images.githubusercontent.com/32546790/174549513-ef3757da-3ae2-4223-bbd7-ef9a6b79cb5e.PNG)
+![snap4](https://user-images.githubusercontent.com/32546790/174549515-c9c6049e-fed1-4bca-9d43-e154e96f6d3f.PNG)
+
+
