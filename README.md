@@ -31,3 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 This is dockerized and the image is available in https://hub.docker.com/repository/docker/souvikd95/stock-market-frontend. You can pull the image with the command
 docker pull souvikd95/stock-market-frontend:latest
+
+## Backend for this application
+
+https://github.com/souvikdas1995/stock-market
