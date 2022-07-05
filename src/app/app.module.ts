@@ -20,15 +20,21 @@ import { MatTableModule } from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
 import { DatePipe } from '@angular/common';
 import { StocklistComponent } from './components/stocklist/stocklist.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogComponent,
-    StocklistComponent
+    StocklistComponent,
+    LoginComponent,
+    RegistrationComponent
   ], 
   imports: [
     BrowserModule,
@@ -50,7 +56,9 @@ import {MatChipsModule} from '@angular/material/chips';
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule,
+    MatRadioModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

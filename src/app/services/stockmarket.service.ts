@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from '../models/company.model';
-const commandServiceUrl = 'http://localhost:8082/api/v1/';
-const queryServiceUrl = 'http://localhost:8081/api/v1/';
+const commandServiceUrl = 'http://localhost:8082/api/v1';
+const queryServiceUrl = 'http://localhost:8081/api/v1';
 @Injectable({
   providedIn: 'root'
 })
