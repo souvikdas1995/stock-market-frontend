@@ -10,6 +10,8 @@ import {MatAccordion} from '@angular/material/expansion';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { StocklistComponent } from './components/stocklist/stocklist.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/registration/registration.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,7 +30,11 @@ export class AppComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
   constructor(public dialog: MatDialog ,private datepipe: DatePipe, private stockmarketapi: StockmarketService, private formBuilder : FormBuilder) {}
   ngOnInit():void{
-
+    
+      this.dialog.open(LoginComponent,{
+        width:'30%'
+      });
+    
   
     this.searchForm=this.formBuilder.group({
       companyCode : ['',Validators.required],

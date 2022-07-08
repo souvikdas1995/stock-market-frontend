@@ -26,7 +26,7 @@ import { DatePipe } from '@angular/common';
 import { StocklistComponent } from './components/stocklist/stocklist.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { LoginComponent } from './components/login/login.component';
-import { RegistrationComponent } from './components/registration/registration.component';
+import { RegisterComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     DialogComponent,
     StocklistComponent,
     LoginComponent,
-    RegistrationComponent
+    RegisterComponent
   ], 
   imports: [
     BrowserModule,

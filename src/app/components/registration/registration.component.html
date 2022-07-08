@@ -3,27 +3,28 @@
   </mat-toolbar>
   <mat-card class="my-card">
      <mat-card-content>
-        <form class="my-form">  
+        <form class="my-form" [formGroup]="registerForm">  
            <mat-form-field class="full-width">
               <mat-label>User Name</mat-label>
-              <input  matInput  placeholder="User Name"  name="username"  required>
+              <input  matInput  placeholder="User Name"  formControlName="name">
            </mat-form-field>
            <mat-form-field class="full-width">
               <mat-label>Password</mat-label>
-              <input  matInput  placeholder="Password"  name="password">
+              <input  matInput  type="password" placeholder="Password"  formControlName="password">
            </mat-form-field>
            <section class="example-section">
               <label class="full-width">Role</label>
               <br>
               <br>
-              <mat-radio-group>
-                 <mat-radio-button class="example-margin" value="after">Admin</mat-radio-button>
-                 <mat-radio-button class="example-margin" value="before">User</mat-radio-button>
+              <mat-radio-group formControlName="roles">
+                 <mat-radio-button class="example-margin" value="ROLE_ADMIN"> Admin</mat-radio-button>
+                 <mat-radio-button class="example-margin" value="ROLE_USER"> User</mat-radio-button>
               </mat-radio-group>
            </section>
         </form>
      </mat-card-content>
-     <mat-card-actions>
-        <!-- <button mat-raised-button (click)="register()" color="primary">Register</button> -->
+     <mat-card-actions mat-dialog-action [align]="'end'">
+       <button mat-raised-button (click)="register()" color="primary">Register</button> 
+       <button mat-raised-button (click)="register()" color="accent">Have an account Log in here</button> 
      </mat-card-actions>
   </mat-card>
