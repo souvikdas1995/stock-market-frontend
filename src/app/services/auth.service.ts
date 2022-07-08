@@ -1,30 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams,HttpBackend } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegisterUser } from '../models/register-user.model';
 import { Roles } from '../models/roles.model';
+import { LoginUser } from '../models/login-user.model';
 
 const AUTH_API = 'http://localhost:8083/authenticate/';
 
 const httpOptionsforSignUp = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-var headers_object = new HttpHeaders();
-headers_object.append('Content-Type', 'application/x-www-form-urlencoded');
-headers_object.append("Authorization", "Basic " + btoa("testjwtclientid:XY7kmzoNzl100"));
 
-const httpOptionsforLogin = {
-  headers: headers_object
+const httpOptionsforLogIn = {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic ' + btoa('testjwtclientid:XY7kmzoNzl100'),
+      'Content-type': 'application/x-www-form-urlencoded'
+      })
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  private http: HttpClient;
+  constructor(
+    private handler: HttpBackend) 
+    {
+    this.http = new HttpClient(handler);
+    }
 
-  login(logiUser: any): Observable<any> {
-    return this.http.post(AUTH_API + 'oauth/token', logiUser, httpOptionsforLogin);
+  login(loginUser: any): Observable<any> {
+
+    console.log(httpOptionsforLogIn);
+    let loginUserObject = {} as LoginUser;
+    loginUserObject.username=loginUser.name;
+    loginUserObject.password=loginUser.password;
+    loginUserObject.grant_type ="password";
+    const body = new HttpParams()
+        .set('username', loginUser.name)
+        .set('password', loginUser.password)
+        .set('grant_type', 'password');
+
+
+    return this.http.post(AUTH_API + 'oauth/token', body, httpOptionsforLogIn);
   }
 
   register(registerUser: any): Observable<any> {

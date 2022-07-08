@@ -6,11 +6,11 @@
         <form class="my-form" [formGroup]="loginForm">
             <mat-form-field class="full-width">
                 <mat-label>User Name</mat-label>
-                <input  matInput  placeholder="User Name"  name="username"  required>
+                <input  matInput  placeholder="User Name"  formControlName="name">
              </mat-form-field>
            <mat-form-field class="full-width">
               <mat-label>Password</mat-label>
-              <input  matInput  placeholder="Password" name="password" required>
+              <input  matInput   type="password" formControlName="password">
            </mat-form-field>
         </form>
      </mat-card-content>

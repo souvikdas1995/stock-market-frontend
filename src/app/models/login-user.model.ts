@@ -1,5 +1,6 @@
 
 export class LoginUser {
-    name?: string;
+    username?: string;
     password?: string;
+    grant_type?: string
 }

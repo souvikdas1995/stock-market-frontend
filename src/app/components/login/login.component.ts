@@ -29,30 +29,34 @@ export class LoginComponent implements OnInit {
       name : ['',Validators.required],
       password : ['',Validators.required]
     })
-    this.loginForm.controls['name'].setValue(this.loginData.name);
-    this.loginForm.controls['password'].setValue(this.loginData.password);
+
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
   }
 
+  
+
   login(): void {
-    if(!this.isLoggedIn){
-    this.authService.login(this.loginForm.value).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+    if(this.loginForm.valid){
+    this.authService.login(this.loginForm.value)
+    .subscribe({
+      next:(data)=>{
+          console.log(data.access_token);
+          this.tokenStorage.saveToken(data.access_token);
+          this.tokenStorage.saveUser(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
+          this.reloadPage();
       },
-      err => {
-        this.errorMessage = err.error.message;
+      error:()=>{
+        this.errorMessage = "Error while registering";
+        console.log("error");
         this.isLoginFailed = true;
       }
-    );
+    })
   }
 }
 
