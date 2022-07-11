@@ -5,7 +5,7 @@
     </button>
     <span>Stock Market</span>
     <span class="example-spacer"></span>
-    <button mat-raised-button color="warn" (click)="openDialog()">Add Company</button>
+    <button mat-raised-button color="warn" [disabled]="!this.tokenapi.isAdmin()" (click)="openDialog()">Add Company</button>
   </mat-toolbar>
   <form [formGroup]="searchForm">
   <div class=searchcontainer>
@@ -101,10 +101,10 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
             <td mat-cell *matCellDef="let row">
-              <button mat-icon-button (click)="editCompany(row)" color="primary">
+              <button mat-icon-button [disabled]="!this.tokenapi.isAdmin()" (click)="editCompany(row)" color="primary">
                 <mat-icon>edit</mat-icon>
               </button> 
-              <button mat-icon-button (click)="deleteCompany(row.companyCode)" color="warn">
+              <button mat-icon-button [disabled]="!this.tokenapi.isAdmin()" (click)="deleteCompany(row.companyCode)" color="warn">
                 <mat-icon>delete</mat-icon>
               </button> 
             </td>

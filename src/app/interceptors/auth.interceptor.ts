@@ -13,7 +13,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
-    console.log("here");
     const token = this.token.getToken();
     if (token != null) {
       // for Spring Boot back-end

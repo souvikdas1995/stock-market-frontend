@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { RegisterComponent } from '../registration/registration.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login-component',
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
 
   constructor(private formBuilder : FormBuilder, @Inject(MAT_DIALOG_DATA) public loginData:any,
-  private dialogRef : MatDialogRef<LoginComponent>,
+  private dialogRef : MatDialogRef<LoginComponent>, @Inject(MatDialog) public  dialog: MatDialog,
   private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   
@@ -36,7 +38,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  
+  openRegistrationDialog(){
+    this.dialogRef.close();
+    this.dialog.open(RegisterComponent,{
+      width:'30%'
+    });
+    
+  }
 
   login(): void {
     if(this.loginForm.valid){
@@ -45,7 +53,7 @@ export class LoginComponent implements OnInit {
       next:(data)=>{
           console.log(data.access_token);
           this.tokenStorage.saveToken(data.access_token);
-          this.tokenStorage.saveUser(data);
+          this.tokenStorage.saveUser(data.access_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.tokenStorage.getUser().roles;

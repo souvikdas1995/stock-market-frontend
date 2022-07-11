@@ -12,6 +12,8 @@ import { DatePipe } from '@angular/common';
 import { StocklistComponent } from './components/stocklist/stocklist.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/registration/registration.component';
+import {TokenStorageService} from './services/token-storage.service';
+import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,7 +21,7 @@ import { RegisterComponent } from './components/registration/registration.compon
 })
 
 export class AppComponent implements OnInit{
-
+  isLoggedIn = false;
   title ='stock market';
   searchForm !:FormGroup;
   companies: any =[];
@@ -28,12 +30,14 @@ export class AppComponent implements OnInit{
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(public dialog: MatDialog ,private datepipe: DatePipe, private stockmarketapi: StockmarketService, private formBuilder : FormBuilder) {}
+  constructor(public dialog: MatDialog ,private datepipe: DatePipe, private stockmarketapi: StockmarketService, public tokenapi : TokenStorageService, private formBuilder : FormBuilder) {}
   ngOnInit():void{
-    
+      this.isLoggedIn = !!this.tokenapi.getToken();
+      if (!this.isLoggedIn){
       this.dialog.open(LoginComponent,{
         width:'30%'
       });
+    }
     
   
     this.searchForm=this.formBuilder.group({
@@ -42,8 +46,12 @@ export class AppComponent implements OnInit{
       endDate : ['',Validators.required]
 
     })
+    if (this.isLoggedIn && this.tokenapi.isUser()){
+
     this.getallcompanyDetails();
+    }
   }
+
 
   fetchDetailsforpanel(){
     
@@ -57,6 +65,7 @@ export class AppComponent implements OnInit{
       }
     })
   }
+
 
   resetForm(){
     this.searchForm.markAsUntouched();

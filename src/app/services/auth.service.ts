@@ -47,7 +47,6 @@ export class AuthService {
 
   register(registerUser: any): Observable<any> {
     let registerUserObject = {} as RegisterUser;
-    let roles=[] as Array<Roles>;
     registerUserObject.roles=[];
     console.log(registerUser);
     registerUserObject.name=registerUser.name;
