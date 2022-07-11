@@ -29,6 +29,7 @@ export class TokenStorageService {
   }
  
   public getUser(): any {
+    try{
     const user = window.sessionStorage.getItem(USER_KEY);
     console.log("user "+user);
     if (user) {
@@ -36,6 +37,10 @@ export class TokenStorageService {
     }
 
     return {};
+  }
+  catch{
+    return {};
+  }
   }
   public isAdmin(){
     try{

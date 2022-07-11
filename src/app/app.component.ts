@@ -22,6 +22,7 @@ import jwt_decode from 'jwt-decode';
 
 export class AppComponent implements OnInit{
   isLoggedIn = false;
+  public shouldShow = true;
   title ='stock market';
   searchForm !:FormGroup;
   companies: any =[];
@@ -39,20 +40,31 @@ export class AppComponent implements OnInit{
       });
     }
     
-  
+
     this.searchForm=this.formBuilder.group({
       companyCode : ['',Validators.required],
       startDate : ['',Validators.required],
       endDate : ['',Validators.required]
 
     })
-    if (this.isLoggedIn && this.tokenapi.isUser()){
 
+    if (this.isLoggedIn && this.tokenapi.isUser()){
     this.getallcompanyDetails();
     }
   }
 
-
+  logOut(){
+    this.tokenapi.signOut();
+    this.isLoggedIn=false;
+    window.location.reload();
+  }
+  openLoginDialog(){
+    this.dialog.open(LoginComponent,{
+      width:'30%'
+    });
+    
+  }
+ 
   fetchDetailsforpanel(){
     
       this.stockmarketapi

@@ -42,7 +42,14 @@ export class LoginComponent implements OnInit {
     this.dialogRef.close();
     this.dialog.open(RegisterComponent,{
       width:'30%'
-    });
+    }).afterClosed().subscribe(val =>{
+     {
+      this.dialog.open(LoginComponent,{
+        width:'30%'
+      })
+      }
+  })
+  
     
   }
 
